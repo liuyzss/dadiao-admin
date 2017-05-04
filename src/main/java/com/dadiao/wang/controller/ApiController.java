@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class ApiController {
-    @RequestMapping("/api/addUser")
+    @RequestMapping("/addUser")
     public String addUser(Model model) {
         return "addUser";
+    }
+    @RequestMapping("/batchAddUser")
+    public String batchAddUser(Model model) {
+        return "batchAddUser";
     }
 }
