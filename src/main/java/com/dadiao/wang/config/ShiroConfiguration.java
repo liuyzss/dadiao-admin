@@ -31,7 +31,8 @@ public class ShiroConfiguration {
 //    }
 
     @Bean(name = "myShiroRealm")
-    public MyShiroRealm myShiroRealm(EhCacheManager cacheManager) {
+    public MyShiroRealm myShiroRealm() {
+//    public MyShiroRealm myShiroRealm(EhCacheManager cacheManager) {
         MyShiroRealm realm = new MyShiroRealm();
         //realm.setCacheManager(cacheManager);
         return realm;
