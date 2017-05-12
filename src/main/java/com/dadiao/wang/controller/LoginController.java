@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -90,15 +91,5 @@ public class LoginController {
         return "403";
     }
 
-    @RequestMapping("/user")
-    public String getUserList(Map<String, Object> model) {
-        //model.put("userList", userDao.getList());
-        return "user";
-    }
 
-    @RequestMapping("/user/edit/{userid}")
-    public String getUserList(@PathVariable int userid) {
-        logger.info("------进入用户信息修改-------");
-        return "user_edit";
-    }
 }
