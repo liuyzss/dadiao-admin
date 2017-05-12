@@ -23,18 +23,17 @@ import java.util.Map;
 public class ShiroConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(ShiroConfiguration.class);
 
-//    @Bean
-//    public EhCacheManager getEhCacheManager() {
-//        EhCacheManager em = new EhCacheManager();
-//        em.setCacheManagerConfigFile("classpath:ehcache-shiro.xml");
-//        return em;
-//    }
+    @Bean
+    public EhCacheManager getEhCacheManager() {
+        EhCacheManager em = new EhCacheManager();
+        em.setCacheManagerConfigFile("classpath:ehcache-shiro.xml");
+        return em;
+    }
 
     @Bean(name = "myShiroRealm")
-    public MyShiroRealm myShiroRealm() {
-//    public MyShiroRealm myShiroRealm(EhCacheManager cacheManager) {
+    public MyShiroRealm myShiroRealm(EhCacheManager cacheManager) {
         MyShiroRealm realm = new MyShiroRealm();
-        //realm.setCacheManager(cacheManager);
+        realm.setCacheManager(cacheManager);
         return realm;
     }
 
@@ -78,7 +77,7 @@ public class ShiroConfiguration {
         DefaultWebSecurityManager dwsm = new DefaultWebSecurityManager();
         dwsm.setRealm(myShiroRealm);
 //      <!-- 用户授权/认证信息Cache, 采用EhCache 缓存 -->
-        //dwsm.setCacheManager(getEhCacheManager());
+        dwsm.setCacheManager(getEhCacheManager());
         return dwsm;
     }
 
