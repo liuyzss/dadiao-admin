@@ -2,6 +2,7 @@ package com.dadiao.wang.shiro;
 
 import com.dadiao.wang.dao.po.Role;
 import com.dadiao.wang.dao.po.User;
+import com.dadiao.wang.dao.po.UserExample;
 import com.dadiao.wang.mapper.UserMapper;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -70,7 +71,12 @@ public class MyShiroRealm extends AuthorizingRealm {
         logger.info("验证当前Subject时获取到token为：" + ReflectionToStringBuilder.toString(token, ToStringStyle.MULTI_LINE_STYLE));
 
         //查出是否有此用户
-        User user= userMapper.findByName(token.getUsername());
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+        criteria.andUsernameEqualTo(token.getUsername());
+        List<User> users = userMapper.selectByExample(example);
+        User user = users.get(0);
+        //User user= userMapper.findByName(token.getUsername());
         if(user!=null){
             // 若存在，将此用户存放到登录认证info中，无需自己做密码对比，Shiro会为我们进行密码对比校验
             return new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), getName());
