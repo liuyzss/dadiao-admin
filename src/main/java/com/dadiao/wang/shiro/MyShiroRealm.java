@@ -1,8 +1,8 @@
 package com.dadiao.wang.shiro;
 
-import com.dadiao.wang.dao.po.Role;
-import com.dadiao.wang.dao.po.User;
-import com.dadiao.wang.dao.po.UserExample;
+import com.dadiao.wang.dao.po.*;
+import com.dadiao.wang.mapper.PermissionMapper;
+import com.dadiao.wang.mapper.RoleMapper;
 import com.dadiao.wang.mapper.UserMapper;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -15,7 +15,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by liuyang on 2017/5/4.
@@ -27,6 +30,11 @@ public class MyShiroRealm extends AuthorizingRealm {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private RoleMapper roleMapper;
+
+    @Autowired
+    private PermissionMapper permissionMapper;
     /**
      * 权限认证，为当前登录的Subject授予角色和权限
      */
@@ -36,17 +44,36 @@ public class MyShiroRealm extends AuthorizingRealm {
         //获取当前登录输入的用户名，等价于(String) principalCollection.fromRealm(getName()).iterator().next();
         String loginName = (String)super.getAvailablePrincipal(principalCollection);
         //到数据库查是否有此对象
-        User user= userMapper.findByName(loginName);// 实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+        criteria.andUsernameEqualTo(loginName);
+        List<User> users = userMapper.selectByExample(example);
+        User user = users.get(0);
+        //User user= userMapper.findByName(loginName);// 实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
         if(user!=null){
             //权限信息对象info,用来存放查出的用户的所有的角色（role）及权限（permission）
             SimpleAuthorizationInfo info=new SimpleAuthorizationInfo();
             //用户的角色集合
-            info.setRoles(user.getRolesName());
-            //用户的角色对应的所有权限，如果只使用角色定义访问权限，下面的四行可以不要
-            List<Role> roleList=user.getRoleList();
-            for (Role role : roleList) {
-                info.addStringPermissions(role.getPermissionsName());
+            List<Role> roles = roleMapper.getRoles(user.getId());
+            // TODO
+            Set<String> roleNames = new HashSet<String>();
+            List<Integer> roleIds = new ArrayList<Integer>();
+            for (Role role : roles){
+                roleNames.add(role.getRolename());
+                roleIds.add(role.getId());
             }
+            info.setRoles(roleNames);
+            //用户的角色对应的所有权限，如果只使用角色定义访问权限，下面的四行可以不要
+            PermissionExample permissionExample = new PermissionExample();
+            PermissionExample.Criteria permissionCriteria = permissionExample.createCriteria();
+            permissionCriteria.andRoleIdIn(roleIds);
+            List<Permission> permissions = permissionMapper.selectByExample(permissionExample);
+
+            Set<String> perssionNames = new HashSet<String>();
+            for (Permission permission :permissions) {
+                perssionNames.add(permission.getPermissionname());
+            }
+            info.addStringPermissions(perssionNames);
             // 或者按下面这样添加
             //添加一个角色,不是配置意义上的添加,而是证明该用户拥有admin角色
 //            simpleAuthorInfo.addRole("admin");

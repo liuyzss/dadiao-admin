@@ -3,6 +3,8 @@ package com.dadiao.wang.mapper;
 import com.dadiao.wang.dao.po.Role;
 import com.dadiao.wang.dao.po.RoleExample;
 import java.util.List;
+import java.util.Set;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface RoleMapper {
@@ -19,4 +21,6 @@ public interface RoleMapper {
     int updateByExampleSelective(@Param("record") Role record, @Param("example") RoleExample example);
 
     int updateByExample(@Param("record") Role record, @Param("example") RoleExample example);
+
+    List<Role> getRoles(@Param("userId")Integer userId);
 }

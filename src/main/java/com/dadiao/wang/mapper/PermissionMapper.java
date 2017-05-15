@@ -19,4 +19,5 @@ public interface PermissionMapper {
     int updateByExampleSelective(@Param("record") Permission record, @Param("example") PermissionExample example);
 
     int updateByExample(@Param("record") Permission record, @Param("example") PermissionExample example);
+
 }

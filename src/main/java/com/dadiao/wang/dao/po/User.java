@@ -1,8 +1,5 @@
 package com.dadiao.wang.dao.po;
 
-import java.util.List;
-import java.util.Set;
-
 public class User {
     private Integer id;
 
@@ -32,13 +29,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
-    }
-
-    public Set<String> getRolesName() {
-        return null;
-    }
-
-    public List<Role> getRoleList() {
-        return null;
     }
 }

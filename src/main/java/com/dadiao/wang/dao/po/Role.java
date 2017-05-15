@@ -1,7 +1,5 @@
 package com.dadiao.wang.dao.po;
 
-import java.util.Collection;
-
 public class Role {
     private Integer id;
 
@@ -21,9 +19,5 @@ public class Role {
 
     public void setRolename(String rolename) {
         this.rolename = rolename == null ? null : rolename.trim();
-    }
-
-    public Collection<String> getPermissionsName() {
-        return null;
     }
 }

@@ -79,6 +79,14 @@
     <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
   </select>
   <delete id="deleteByExample" parameterType="com.dadiao.wang.dao.po.RoleExample">
     delete from t_role
@@ -137,4 +145,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+
+  <select id="getRoles" parameterType="Map" resultMap="BaseResultMap">
+    select t1.* from t_role t1 left JOIN t_user_role t2 on t1.id = t2.role_id where t2.user_id = #{userId,jdbcType=INTEGER}
+  </select>
 </mapper>
