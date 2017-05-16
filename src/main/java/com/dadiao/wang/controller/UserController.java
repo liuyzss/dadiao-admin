@@ -6,10 +6,7 @@ import com.dadiao.wang.mapper.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -40,13 +37,17 @@ public class UserController {
 
     @RequestMapping(value = "/user/data",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> getUserList() {
-        Map<String, Object> model = new HashMap<>();
+    public Map<String,Object> getUserList(@RequestParam("draw") Long draw,@RequestParam("start") Integer start,@RequestParam("length") Integer length) {
+        Map<String, Object> map = new HashMap<>();
         UserExample example = new UserExample();
-        example.setLimit(2);
-        example.setOffset(0);
+        example.setLimit(length);
+        example.setOffset(start);
         List<User> users = userMapper.selectByExample(example);
-        model.put("data", users);
-        return model;
+        Long count = userMapper.countByExample(example);
+        map.put("data", users);
+        map.put("draw",draw+1);
+        map.put("recordsFiltered",count);
+        map.put("recordsTotal",count);
+        return map;
     }
 }

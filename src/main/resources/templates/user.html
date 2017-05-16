@@ -41,6 +41,7 @@
                                 <tr>
                                     <th>id</th>
                                     <th>username</th>
+                                    <th>operation</th>
                                 </tr>
                                 </thead>
                             </table>
@@ -80,8 +81,20 @@
             },
             "columns": [
                 {"data": "id"},
-                {"data": "username"}
-            ]
+                {"data": "username"},
+                {
+                    "targets": 1,//操作按钮目标列
+                    "data": null,
+                    "sWidth":"20%",
+                    "render": function (data, type, row) {
+                        var id = '"' + row.id + '"';
+                        var html = "<a href='javascript:void(0);'  class='delete btn btn-default btn-xs'  ><i class='fa fa-times'></i> 查看</a>"
+                        html += "<a href='javascript:void(0);' class='up btn btn-default btn-xs'><i class='fa fa-arrow-up'></i> 编辑</a>"
+                        html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser(" + id + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> 删除</a>"
+                        return html;
+                    }
+                }
+            ],
         });
     });
 </script>
