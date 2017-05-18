@@ -53,10 +53,10 @@
         </javaClientGenerator>
         <!-- 指定数据库表 -->
 
+        <!--<table tableName="t_inventory_log" domainObjectName="InventoryLog" />-->
         <table tableName="t_user" domainObjectName="User" />
-        <table tableName="t_permission" domainObjectName="Permission" />
-        <table tableName="t_role" domainObjectName="Role" />
-        <table tableName="t_user_role" domainObjectName="UserRole" />
-        <table tableName="t_salesman" domainObjectName="Salesman" />
+        <!--<table tableName="t_permission" domainObjectName="Permission" />-->
+        <!--<table tableName="t_role" domainObjectName="Role" />-->
+        <!--<table tableName="t_user_role" domainObjectName="UserRole" />-->
     </context>
 </generatorConfiguration>

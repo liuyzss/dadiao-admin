@@ -40,7 +40,8 @@
                                 <thead>
                                 <tr>
                                     <th>id</th>
-                                    <th>username</th>
+                                    <th>账号</th>
+                                    <th>库存</th>
                                     <th>operation</th>
                                 </tr>
                                 </thead>
@@ -75,6 +76,13 @@
         $('#dataTable').DataTable({
             "processing": true,
             "serverSide": true,
+            "lengthChange": false,//是否允许用户自定义显示数量
+            "bPaginate": true, //翻页功能
+            "bFilter": false, //列筛序功能
+            "searching": true,//本地搜索
+            "ordering": false, //排序功能
+            "Info": true,//页脚信息
+            "autoWidth": true,//自动宽度
             "ajax": {
                 "url": "/user/data",
                 "type": "POST"
@@ -82,15 +90,16 @@
             "columns": [
                 {"data": "id"},
                 {"data": "username"},
+                {"data": "inventory"},
                 {
                     "targets": 1,//操作按钮目标列
                     "data": null,
                     "sWidth":"20%",
                     "render": function (data, type, row) {
                         var id = '"' + row.id + '"';
-                        var html = "<a href='javascript:void(0);'  class='delete btn btn-default btn-xs'  ><i class='fa fa-times'></i> 查看</a>"
-                        html += "<a href='javascript:void(0);' class='up btn btn-default btn-xs'><i class='fa fa-arrow-up'></i> 编辑</a>"
-                        html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser(" + id + ")'  class='down btn btn-default btn-xs'><i class='fa fa-arrow-down'></i> 删除</a>"
+                        var html = "<a href='javascript:void(0);'  class='up btn btn-default btn-xs'  ><i class='fa fa-user-plus'></i> 库存</a> &nbsp;"
+                        html += "<a href='/user/edit/"+row.id+"' class='down btn btn-default btn-xs'><i class='fa fa-edit'></i> 编辑</a> &nbsp;"
+                        html += "<a href='javascript:void(0);'   onclick='deleteThisRowPapser(" + id + ")'  class='delete btn btn-default btn-xs'><i class='fa fa-times'></i> 删除</a>"
                         return html;
                     }
                 }
