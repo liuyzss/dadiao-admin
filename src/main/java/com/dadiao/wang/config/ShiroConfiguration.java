@@ -1,5 +1,6 @@
 package com.dadiao.wang.config;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.dadiao.wang.shiro.MShiroFilterFactoryBean;
 import com.dadiao.wang.shiro.MyShiroRealm;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
@@ -22,6 +23,11 @@ import java.util.Map;
 @Configuration
 public class ShiroConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(ShiroConfiguration.class);
+
+    @Bean
+    public ShiroDialect shiroDialect() {
+        return new ShiroDialect();
+    }
 
     @Bean
     public EhCacheManager getEhCacheManager() {
@@ -47,7 +53,7 @@ public class ShiroConfiguration {
      *
      * @return
      * @author SHANHY
-     * @create  2016年1月13日
+     * @create 2016年1月13日
      */
 //  @Bean
 //  public FilterRegistrationBean filterRegistrationBean() {
@@ -59,7 +65,6 @@ public class ShiroConfiguration {
 //      filterRegistration.addUrlPatterns("/*");// 可以自己灵活的定义很多，避免一些根本不需要被Shiro处理的请求被包含进来
 //      return filterRegistration;
 //  }
-
     @Bean(name = "lifecycleBeanPostProcessor")
     public LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
         return new LifecycleBeanPostProcessor();
@@ -92,9 +97,9 @@ public class ShiroConfiguration {
      * 加载shiroFilter权限控制规则（从数据库读取然后配置）
      *
      * @author SHANHY
-     * @create  2016年1月14日
+     * @create 2016年1月14日
      */
-    private void loadShiroFilterChain(ShiroFilterFactoryBean shiroFilterFactoryBean){
+    private void loadShiroFilterChain(ShiroFilterFactoryBean shiroFilterFactoryBean) {
         /////////////////////// 下面这些规则配置最好配置到配置文件中 ///////////////////////
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
         // authc：该过滤器下的页面必须验证后才能访问，它是Shiro内置的一个拦截器org.apache.shiro.web.filter.authc.FormAuthenticationFilter
@@ -121,7 +126,7 @@ public class ShiroConfiguration {
      *
      * @return
      * @author SHANHY
-     * @create  2016年1月14日
+     * @create 2016年1月14日
      */
     @Bean(name = "shiroFilter")
     public ShiroFilterFactoryBean getShiroFilterFactoryBean(DefaultWebSecurityManager securityManager) {
