@@ -20,24 +20,32 @@
         </section>
         <section class="content">
             <div class="box box-primary">
-                <form role="form">
+                <form role="form" id="editForm">
+                    <input type="hidden" name="id" id="id" th:attr="value=${user != null} ? ${user.id}: ''">
+
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="name">User name</label>
-                            <input type="text" class="form-control" id="name" th:attr="value=${user.username}" placeholder="Enter user name">
+                            <label for="username">用户名</label>
+                            <input type="text" class="form-control" name="username" id="username" th:attr="value=${user !=null } ? ${user.username} : ''"
+                                   placeholder="Enter user name">
                         </div>
                         <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password"
-                                   placeholder="Password" th:attr="value=${user.password}">
+                            <label for="password">密码</label>
+                            <input type="password" name="password" class="form-control" id="password"
+                                   placeholder="Password" th:attr="value=${user !=null } ? ${user.password} : ''">
                         </div>
                         <div class="form-group">
-                            <label for="dayCount">Day count</label>
-                            <input type="number" th:attr="value=${user.username}" class="form-control" id="dayCount" placeholder="Enter dayCount">
+                            <label for="inventory">库存</label>
+                            <input type="number" name="inventory" th:attr="value=${user != null} ? ${user.inventory} : ''" class="form-control"
+                                   id="inventory" placeholder="Enter dayCount">
                         </div>
+                        <!--<div class="form-group">-->
+                            <!--<label for="roleId">角色</label>-->
+                            <!--<select  name="roleId" id="roleId" class="form-control"></select>-->
+                        <!--</div>-->
                     </div>
                     <div class="box-footer">
-                        <input class="btn btn-primary" type="button" value="Submit"/>
+                        <input data-url="/user/edit" class="btn btn-primary" id="submit" type="button" value="Submit"/>
                     </div>
                 </form>
             </div>
@@ -51,4 +59,27 @@
 </div>
 <div style="display: none" th:include="layout/foot_script::script"></div>
 </body>
+<script>
+    $(function () {
+//        var data = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
+//        $("#roleId").select2({
+//            data: data,
+//        })
+        $("#submit").click(function (e) {
+            var target = $(e.target);
+            var url = target.attr("data-url");
+            var data = $("#editForm").serialize();
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: data,
+                dataType: 'json',
+                success: function (res) {
+                    alert(res);
+                }
+
+            });
+        });
+    })
+</script>
 </html>

@@ -21,7 +21,7 @@ public class User {
 
     private Date updatedDate;
 
-    private Integer updatedBy;
+    private String updatedBy;
 
     public Integer getId() {
         return id;
@@ -95,11 +95,11 @@ public class User {
         this.updatedDate = updatedDate;
     }
 
-    public Integer getUpdatedBy() {
+    public String getUpdatedBy() {
         return updatedBy;
     }
 
-    public void setUpdatedBy(Integer updatedBy) {
-        this.updatedBy = updatedBy;
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy == null ? null : updatedBy.trim();
     }
 }

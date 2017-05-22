@@ -705,52 +705,62 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andUpdatedByEqualTo(Integer value) {
+        public Criteria andUpdatedByEqualTo(String value) {
             addCriterion("updated_by =", value, "updatedBy");
             return (Criteria) this;
         }
 
-        public Criteria andUpdatedByNotEqualTo(Integer value) {
+        public Criteria andUpdatedByNotEqualTo(String value) {
             addCriterion("updated_by <>", value, "updatedBy");
             return (Criteria) this;
         }
 
-        public Criteria andUpdatedByGreaterThan(Integer value) {
+        public Criteria andUpdatedByGreaterThan(String value) {
             addCriterion("updated_by >", value, "updatedBy");
             return (Criteria) this;
         }
 
-        public Criteria andUpdatedByGreaterThanOrEqualTo(Integer value) {
+        public Criteria andUpdatedByGreaterThanOrEqualTo(String value) {
             addCriterion("updated_by >=", value, "updatedBy");
             return (Criteria) this;
         }
 
-        public Criteria andUpdatedByLessThan(Integer value) {
+        public Criteria andUpdatedByLessThan(String value) {
             addCriterion("updated_by <", value, "updatedBy");
             return (Criteria) this;
         }
 
-        public Criteria andUpdatedByLessThanOrEqualTo(Integer value) {
+        public Criteria andUpdatedByLessThanOrEqualTo(String value) {
             addCriterion("updated_by <=", value, "updatedBy");
             return (Criteria) this;
         }
 
-        public Criteria andUpdatedByIn(List<Integer> values) {
+        public Criteria andUpdatedByLike(String value) {
+            addCriterion("updated_by like", value, "updatedBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatedByNotLike(String value) {
+            addCriterion("updated_by not like", value, "updatedBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatedByIn(List<String> values) {
             addCriterion("updated_by in", values, "updatedBy");
             return (Criteria) this;
         }
 
-        public Criteria andUpdatedByNotIn(List<Integer> values) {
+        public Criteria andUpdatedByNotIn(List<String> values) {
             addCriterion("updated_by not in", values, "updatedBy");
             return (Criteria) this;
         }
 
-        public Criteria andUpdatedByBetween(Integer value1, Integer value2) {
+        public Criteria andUpdatedByBetween(String value1, String value2) {
             addCriterion("updated_by between", value1, value2, "updatedBy");
             return (Criteria) this;
         }
 
-        public Criteria andUpdatedByNotBetween(Integer value1, Integer value2) {
+        public Criteria andUpdatedByNotBetween(String value1, String value2) {
             addCriterion("updated_by not between", value1, value2, "updatedBy");
             return (Criteria) this;
         }

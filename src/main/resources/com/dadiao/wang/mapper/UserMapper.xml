@@ -11,7 +11,7 @@
     <result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
     <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
     <result column="updated_date" jdbcType="TIMESTAMP" property="updatedDate" />
-    <result column="updated_by" jdbcType="INTEGER" property="updatedBy" />
+    <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -113,7 +113,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.dadiao.wang.dao.po.User">
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.dadiao.wang.dao.po.User">
     insert into t_user (id, username, password, 
       parent_id, level, inventory, 
       created_date, created_by, updated_date, 
@@ -121,7 +121,7 @@
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{parentId,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, #{inventory,jdbcType=INTEGER}, 
       #{createdDate,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR}, #{updatedDate,jdbcType=TIMESTAMP}, 
-      #{updatedBy,jdbcType=INTEGER})
+      #{updatedBy,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.dadiao.wang.dao.po.User">
     insert into t_user
@@ -186,7 +186,7 @@
         #{updatedDate,jdbcType=TIMESTAMP},
       </if>
       <if test="updatedBy != null">
-        #{updatedBy,jdbcType=INTEGER},
+        #{updatedBy,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -227,7 +227,7 @@
         updated_date = #{record.updatedDate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.updatedBy != null">
-        updated_by = #{record.updatedBy,jdbcType=INTEGER},
+        updated_by = #{record.updatedBy,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -245,7 +245,7 @@
       created_date = #{record.createdDate,jdbcType=TIMESTAMP},
       created_by = #{record.createdBy,jdbcType=VARCHAR},
       updated_date = #{record.updatedDate,jdbcType=TIMESTAMP},
-      updated_by = #{record.updatedBy,jdbcType=INTEGER}
+      updated_by = #{record.updatedBy,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -278,7 +278,7 @@
         updated_date = #{updatedDate,jdbcType=TIMESTAMP},
       </if>
       <if test="updatedBy != null">
-        updated_by = #{updatedBy,jdbcType=INTEGER},
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -293,7 +293,7 @@
       created_date = #{createdDate,jdbcType=TIMESTAMP},
       created_by = #{createdBy,jdbcType=VARCHAR},
       updated_date = #{updatedDate,jdbcType=TIMESTAMP},
-      updated_by = #{updatedBy,jdbcType=INTEGER}
+      updated_by = #{updatedBy,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
