@@ -1,53 +1,34 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.w3.org/1999/xhtml">
 <aside th:fragment="aside">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
-            <li class="active treeview">
-                <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>用户管理</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> 添加用户</a></li>
-                    <li><a href="index2.html"><i class="fa fa-circle-o"></i> 批量添加</a></li>
-                </ul>
-            </li>
             <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-share"></i> <span>multilevel</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> level one</a></li>
-                    <li>
-                        <a href="#"><i class="fa fa-circle-o"></i> level one
+                <a href="/index"><i class="fa fa-dashboard"></i> Dashboard
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-circle-o"></i> level two</a></li>
-                            <li>
-                                <a href="#"><i class="fa fa-circle-o"></i> level two
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+                </a>
+            </li>
+            <li class="active treeview">
+                <a href="#">
+                    <i class="fa fa-user-plus"></i> <span>用户管理</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="active"><a href="/api/addUser.html"><i class="fa fa-circle-o"></i> 添加用户</a></li>
+                    <li><a href="/api/batchAddUser.html"><i class="fa fa-circle-o"></i> 批量添加</a></li>
                 </ul>
+            </li>
+            <li class="treeview" shiro:hasRole="admin">
+                <a href="/user"><i class="fa fa-users"></i> 代理管理
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                </a>
             </li>
         </ul>
     </section>

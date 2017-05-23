@@ -1,19 +1,20 @@
 package com.dadiao.wang.vo;
 
 /**
- * Created by liuyang on 2017/5/21.
+ * Created by liuyang on 2017/5/23.
  */
-public class UserVo {
-    private String name;
+public class BatchUserVo {
+    private String prefix;
     private String password;
     private Integer dayCount;
+    private int count;
 
-    public String getName() {
-        return name;
+    public String getPrefix() {
+        return prefix;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
     }
 
     public String getPassword() {
@@ -30,5 +31,13 @@ public class UserVo {
 
     public void setDayCount(Integer dayCount) {
         this.dayCount = dayCount;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }

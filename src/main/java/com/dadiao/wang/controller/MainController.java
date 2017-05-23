@@ -44,16 +44,16 @@ public class MainController {
 
     @RequestMapping("/dict/role")
     @ResponseBody
-    public Object getRoleDict(){
+    public Object getRoleDict() {
         List<Role> roles = roleMapper.selectByExample(null);
         List<Object> res = new ArrayList<>();
-        for (Role role : roles){
-            Map<String,Object> map = new HashMap<String,Object>();
-            map.put("id",role.getId());
-            map.put("text",role.getRolename());
+        for (Role role : roles) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("id", role.getId());
+            map.put("text", role.getRolename());
             res.add(map);
 
         }
-       return res;
+        return res;
     }
 }
