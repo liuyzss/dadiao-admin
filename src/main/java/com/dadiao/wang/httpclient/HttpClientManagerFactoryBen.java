@@ -33,9 +33,9 @@ public class HttpClientManagerFactoryBen implements FactoryBean<CloseableHttpCli
 
     @Autowired
     private HttpRequestRetryHandler httpRequestRetryHandler;
-
-    @Autowired
-    private DefaultProxyRoutePlanner proxyRoutePlanner;
+// TODO 代理
+    //@Autowired
+    //private DefaultProxyRoutePlanner proxyRoutePlanner;
 
     @Autowired
     private PoolingHttpClientConnectionManager poolHttpcConnManager;
@@ -67,7 +67,8 @@ public class HttpClientManagerFactoryBen implements FactoryBean<CloseableHttpCli
         this.client = HttpClients.custom().setConnectionManager(poolHttpcConnManager)
                 .setRetryHandler(httpRequestRetryHandler)
                 .setKeepAliveStrategy(connectionKeepAliveStrategy)
-                .setRoutePlanner(proxyRoutePlanner)
+                // TODO 代理
+                //.setRoutePlanner(proxyRoutePlanner)
                 .setDefaultRequestConfig(config)
                 .build();
     }

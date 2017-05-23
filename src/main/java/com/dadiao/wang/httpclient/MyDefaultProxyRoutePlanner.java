@@ -24,8 +24,8 @@ public class MyDefaultProxyRoutePlanner {
     // 代理的端口号
     @Value("${httpclient.config.proxyPort}")
     private int proxyPort = 8080;
-
-    @Bean
+// TODO 设置代理
+//    @Bean
     public DefaultProxyRoutePlanner defaultProxyRoutePlanner() {
         HttpHost proxy = new HttpHost(this.proxyHost, this.proxyPort);
         return new DefaultProxyRoutePlanner(proxy);
