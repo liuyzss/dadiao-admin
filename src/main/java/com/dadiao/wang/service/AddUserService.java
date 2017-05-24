@@ -1,6 +1,7 @@
 package com.dadiao.wang.service;
 
 import com.alibaba.fastjson.JSON;
+import com.dadiao.wang.common.NoInventoryException;
 import com.dadiao.wang.constant.InventoryLogEnum;
 import com.dadiao.wang.dao.po.InventoryLog;
 import com.dadiao.wang.dao.po.User;
@@ -38,9 +39,14 @@ public class AddUserService {
     }
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, isolation = Isolation.DEFAULT)
-    public int addUserLog(String username,UserVO userVO){
+    public int addUserLog(String username, UserVO userVO) {
         User user = this.getUserByName(username);
-        //userMapper.
+        if (user.getInventory() - 1 >= 0) {
+            user.setInventory(user.getInventory() - 1);
+        } else {
+            throw new NoInventoryException(user.getInventory());
+        }
+        userMapper.updateByPrimaryKeySelective(user);
         InventoryLog inventoryLog = new InventoryLog();
         inventoryLog.setUsername(username);
         inventoryLog.setAmount(1);
@@ -49,10 +55,24 @@ public class AddUserService {
         inventoryLog.setCreatedBy(username);
         inventoryLog.setExtJson(JSON.toJSONString(userVO));
         inventoryLogMapper.insert(inventoryLog);
-       return 0;
+        return 0;
     }
 
-    public int batchAddUserLog(String username,BatchUserVO batchUserVO){
+    public int batchAddUserLog(String username, BatchUserVO batchUserVO) {
+        User user = this.getUserByName(username);
+        if (user.getInventory() - 1 >= 0) {
+            user.setInventory(user.getInventory() - 1);
+        } else {
+            throw new NoInventoryException(user.getInventory());
+        }
+        InventoryLog inventoryLog = new InventoryLog();
+        inventoryLog.setUsername(username);
+        inventoryLog.setAmount(1);
+        inventoryLog.setOperateType((byte) InventoryLogEnum.ADD_USER.value);
+        inventoryLog.setCreatedTime(new Date());
+        inventoryLog.setCreatedBy(username);
+        inventoryLog.setExtJson(JSON.toJSONString(batchUserVO));
+        inventoryLogMapper.insert(inventoryLog);
         return 0;
     }
 }

@@ -62,7 +62,7 @@ public class ApiController {
             if (apiVO.getCode().equals(0)) {
                 Subject currentUser = SecurityUtils.getSubject();
                 String username = (String) currentUser.getPrincipal();
-                addUserService.addUserLog(username,userVO);
+                addUserService.addUserLog(username, userVO);
                 return ResponseUtil.success();
 
             }
@@ -83,18 +83,10 @@ public class ApiController {
             res = httpClientService.doPost(UrlConstant.BATCH_ADD_USER_URL, params);
             apiVO = JSON.parseObject(res.getData(), ApiVO.class);
             if (apiVO.getCode().equals(0)) {
-                InventoryLog inventoryLog = new InventoryLog();
                 Subject currentUser = SecurityUtils.getSubject();
                 String username = (String) currentUser.getPrincipal();
-                inventoryLog.setUsername(username);
-                inventoryLog.setAmount(1);
-                inventoryLog.setOperateType((byte) InventoryLogEnum.ADD_USER.value);
-                inventoryLog.setCreatedTime(new Date());
-                inventoryLog.setCreatedBy(username);
-                inventoryLog.setExtJson(JSON.toJSONString(batchUserVO));
-                inventoryLogMapper.insert(inventoryLog);
+                addUserService.batchAddUserLog(username, batchUserVO);
                 return ResponseUtil.success();
-
             }
             return ResponseUtil.response("1001", apiVO, apiVO.getMsg());
         } catch (IOException e) {
