@@ -185,63 +185,73 @@ public class InventoryLogExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIsNull() {
-            addCriterion("user_id is null");
+        public Criteria andUsernameIsNull() {
+            addCriterion("username is null");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIsNotNull() {
-            addCriterion("user_id is not null");
+        public Criteria andUsernameIsNotNull() {
+            addCriterion("username is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdEqualTo(Integer value) {
-            addCriterion("user_id =", value, "userId");
+        public Criteria andUsernameEqualTo(String value) {
+            addCriterion("username =", value, "username");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotEqualTo(Integer value) {
-            addCriterion("user_id <>", value, "userId");
+        public Criteria andUsernameNotEqualTo(String value) {
+            addCriterion("username <>", value, "username");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThan(Integer value) {
-            addCriterion("user_id >", value, "userId");
+        public Criteria andUsernameGreaterThan(String value) {
+            addCriterion("username >", value, "username");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("user_id >=", value, "userId");
+        public Criteria andUsernameGreaterThanOrEqualTo(String value) {
+            addCriterion("username >=", value, "username");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThan(Integer value) {
-            addCriterion("user_id <", value, "userId");
+        public Criteria andUsernameLessThan(String value) {
+            addCriterion("username <", value, "username");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThanOrEqualTo(Integer value) {
-            addCriterion("user_id <=", value, "userId");
+        public Criteria andUsernameLessThanOrEqualTo(String value) {
+            addCriterion("username <=", value, "username");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIn(List<Integer> values) {
-            addCriterion("user_id in", values, "userId");
+        public Criteria andUsernameLike(String value) {
+            addCriterion("username like", value, "username");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotIn(List<Integer> values) {
-            addCriterion("user_id not in", values, "userId");
+        public Criteria andUsernameNotLike(String value) {
+            addCriterion("username not like", value, "username");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdBetween(Integer value1, Integer value2) {
-            addCriterion("user_id between", value1, value2, "userId");
+        public Criteria andUsernameIn(List<String> values) {
+            addCriterion("username in", values, "username");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("user_id not between", value1, value2, "userId");
+        public Criteria andUsernameNotIn(List<String> values) {
+            addCriterion("username not in", values, "username");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameBetween(String value1, String value2) {
+            addCriterion("username between", value1, value2, "username");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameNotBetween(String value1, String value2) {
+            addCriterion("username not between", value1, value2, "username");
             return (Criteria) this;
         }
 
@@ -362,6 +372,76 @@ public class InventoryLogExample {
 
         public Criteria andOperateTypeNotBetween(Byte value1, Byte value2) {
             addCriterion("operate_type not between", value1, value2, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtJsonIsNull() {
+            addCriterion("ext_json is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtJsonIsNotNull() {
+            addCriterion("ext_json is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtJsonEqualTo(String value) {
+            addCriterion("ext_json =", value, "extJson");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtJsonNotEqualTo(String value) {
+            addCriterion("ext_json <>", value, "extJson");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtJsonGreaterThan(String value) {
+            addCriterion("ext_json >", value, "extJson");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtJsonGreaterThanOrEqualTo(String value) {
+            addCriterion("ext_json >=", value, "extJson");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtJsonLessThan(String value) {
+            addCriterion("ext_json <", value, "extJson");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtJsonLessThanOrEqualTo(String value) {
+            addCriterion("ext_json <=", value, "extJson");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtJsonLike(String value) {
+            addCriterion("ext_json like", value, "extJson");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtJsonNotLike(String value) {
+            addCriterion("ext_json not like", value, "extJson");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtJsonIn(List<String> values) {
+            addCriterion("ext_json in", values, "extJson");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtJsonNotIn(List<String> values) {
+            addCriterion("ext_json not in", values, "extJson");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtJsonBetween(String value1, String value2) {
+            addCriterion("ext_json between", value1, value2, "extJson");
+            return (Criteria) this;
+        }
+
+        public Criteria andExtJsonNotBetween(String value1, String value2) {
+            addCriterion("ext_json not between", value1, value2, "extJson");
             return (Criteria) this;
         }
 

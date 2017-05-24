@@ -3,9 +3,10 @@
 <mapper namespace="com.dadiao.wang.mapper.InventoryLogMapper">
   <resultMap id="BaseResultMap" type="com.dadiao.wang.dao.po.InventoryLog">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="amount" jdbcType="INTEGER" property="amount" />
     <result column="operate_type" jdbcType="TINYINT" property="operateType" />
+    <result column="ext_json" jdbcType="VARCHAR" property="extJson" />
     <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
     <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
   </resultMap>
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, amount, operate_type, created_time, created_by
+    id, username, amount, operate_type, ext_json, created_time, created_by
   </sql>
   <select id="selectByExample" parameterType="com.dadiao.wang.dao.po.InventoryLogExample" resultMap="BaseResultMap">
     select
@@ -109,12 +110,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.dadiao.wang.dao.po.InventoryLog">
-    insert into t_inventory_log (id, user_id, amount, 
-      operate_type, created_time, created_by
-      )
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{amount,jdbcType=INTEGER}, 
-      #{operateType,jdbcType=TINYINT}, #{createdTime,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR}
-      )
+    insert into t_inventory_log (id, username, amount, 
+      operate_type, ext_json, created_time, 
+      created_by)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{amount,jdbcType=INTEGER}, 
+      #{operateType,jdbcType=TINYINT}, #{extJson,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{createdBy,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.dadiao.wang.dao.po.InventoryLog">
     insert into t_inventory_log
@@ -122,14 +123,17 @@
       <if test="id != null">
         id,
       </if>
-      <if test="userId != null">
-        user_id,
+      <if test="username != null">
+        username,
       </if>
       <if test="amount != null">
         amount,
       </if>
       <if test="operateType != null">
         operate_type,
+      </if>
+      <if test="extJson != null">
+        ext_json,
       </if>
       <if test="createdTime != null">
         created_time,
@@ -142,14 +146,17 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
       </if>
       <if test="amount != null">
         #{amount,jdbcType=INTEGER},
       </if>
       <if test="operateType != null">
         #{operateType,jdbcType=TINYINT},
+      </if>
+      <if test="extJson != null">
+        #{extJson,jdbcType=VARCHAR},
       </if>
       <if test="createdTime != null">
         #{createdTime,jdbcType=TIMESTAMP},
@@ -171,14 +178,17 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=INTEGER},
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
       </if>
       <if test="record.amount != null">
         amount = #{record.amount,jdbcType=INTEGER},
       </if>
       <if test="record.operateType != null">
         operate_type = #{record.operateType,jdbcType=TINYINT},
+      </if>
+      <if test="record.extJson != null">
+        ext_json = #{record.extJson,jdbcType=VARCHAR},
       </if>
       <if test="record.createdTime != null">
         created_time = #{record.createdTime,jdbcType=TIMESTAMP},
@@ -194,9 +204,10 @@
   <update id="updateByExample" parameterType="map">
     update t_inventory_log
     set id = #{record.id,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
       amount = #{record.amount,jdbcType=INTEGER},
       operate_type = #{record.operateType,jdbcType=TINYINT},
+      ext_json = #{record.extJson,jdbcType=VARCHAR},
       created_time = #{record.createdTime,jdbcType=TIMESTAMP},
       created_by = #{record.createdBy,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -206,14 +217,17 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.dadiao.wang.dao.po.InventoryLog">
     update t_inventory_log
     <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
       </if>
       <if test="amount != null">
         amount = #{amount,jdbcType=INTEGER},
       </if>
       <if test="operateType != null">
         operate_type = #{operateType,jdbcType=TINYINT},
+      </if>
+      <if test="extJson != null">
+        ext_json = #{extJson,jdbcType=VARCHAR},
       </if>
       <if test="createdTime != null">
         created_time = #{createdTime,jdbcType=TIMESTAMP},
@@ -226,9 +240,10 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dadiao.wang.dao.po.InventoryLog">
     update t_inventory_log
-    set user_id = #{userId,jdbcType=INTEGER},
+    set username = #{username,jdbcType=VARCHAR},
       amount = #{amount,jdbcType=INTEGER},
       operate_type = #{operateType,jdbcType=TINYINT},
+      ext_json = #{extJson,jdbcType=VARCHAR},
       created_time = #{createdTime,jdbcType=TIMESTAMP},
       created_by = #{createdBy,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}

@@ -3,7 +3,7 @@ package com.dadiao.wang.vo;
 /**
  * Created by liuyang on 2017/5/23.
  */
-public class BatchUserVo {
+public class BatchUserVO {
     private String prefix;
     private String password;
     private Integer dayCount;

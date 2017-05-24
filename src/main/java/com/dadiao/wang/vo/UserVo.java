@@ -3,7 +3,7 @@ package com.dadiao.wang.vo;
 /**
  * Created by liuyang on 2017/5/21.
  */
-public class UserVo {
+public class UserVO {
     private String name;
     private String password;
     private Integer dayCount;

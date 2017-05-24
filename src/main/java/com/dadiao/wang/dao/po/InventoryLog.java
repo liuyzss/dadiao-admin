@@ -5,11 +5,13 @@ import java.util.Date;
 public class InventoryLog {
     private Integer id;
 
-    private Integer userId;
+    private String username;
 
     private Integer amount;
 
     private Byte operateType;
+
+    private String extJson;
 
     private Date createdTime;
 
@@ -23,12 +25,12 @@ public class InventoryLog {
         this.id = id;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
     }
 
     public Integer getAmount() {
@@ -45,6 +47,14 @@ public class InventoryLog {
 
     public void setOperateType(Byte operateType) {
         this.operateType = operateType;
+    }
+
+    public String getExtJson() {
+        return extJson;
+    }
+
+    public void setExtJson(String extJson) {
+        this.extJson = extJson == null ? null : extJson.trim();
     }
 
     public Date getCreatedTime() {
