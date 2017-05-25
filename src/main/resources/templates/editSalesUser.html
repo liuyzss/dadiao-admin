@@ -75,7 +75,13 @@
                 data: data,
                 dataType: 'json',
                 success: function (res) {
-                    alert(res);
+                    if ("0000" == res.code) {
+                        bootbox.alert("添加成功", function () {
+                            location = location;
+                        });
+                    } else {
+                        bootbox.alert(res.msg);
+                    }alert(res);
                 }
 
             });
