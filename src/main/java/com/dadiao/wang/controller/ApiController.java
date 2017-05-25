@@ -1,16 +1,9 @@
 package com.dadiao.wang.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.dadiao.wang.constant.InventoryLogEnum;
-import com.dadiao.wang.constant.UrlConstant;
-import com.dadiao.wang.dao.po.InventoryLog;
-import com.dadiao.wang.mapper.InventoryLogMapper;
+import com.dadiao.wang.common.NoInventoryException;
+import com.dadiao.wang.constant.ResponseEnum;
 import com.dadiao.wang.service.AddUserService;
-import com.dadiao.wang.util.BeanMapUtil;
-import com.dadiao.wang.util.HttpClientService;
-import com.dadiao.wang.util.HttpResult;
 import com.dadiao.wang.util.ResponseUtil;
-import com.dadiao.wang.vo.ApiVO;
 import com.dadiao.wang.vo.BatchUserVO;
 import com.dadiao.wang.vo.UserVO;
 import org.apache.shiro.SecurityUtils;
@@ -22,9 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.io.IOException;
-import java.util.Date;
-import java.util.Map;
 
 /**
  * Created by liuyang on 2017/5/2.
@@ -33,9 +23,6 @@ import java.util.Map;
 @RequestMapping("/api")
 public class ApiController {
 
-
-    @Resource
-    private HttpClientService httpClientService;
 
     @Resource
     private AddUserService addUserService;
@@ -53,45 +40,32 @@ public class ApiController {
     @RequestMapping(path = "/addUser", method = RequestMethod.POST)
     @ResponseBody
     public Object addUser(UserVO userVO) {
-        HttpResult res = null;
-        ApiVO apiVO = null;
+        Subject currentUser = SecurityUtils.getSubject();
+        String username = (String) currentUser.getPrincipal();
         try {
-            Map<String, String> params = BeanMapUtil.bean2MapStr(userVO);
-            res = httpClientService.doPost(UrlConstant.ADD_USER_URL, params);
-            apiVO = JSON.parseObject(res.getData(), ApiVO.class);
-            if (apiVO.getCode().equals(0)) {
-                Subject currentUser = SecurityUtils.getSubject();
-                String username = (String) currentUser.getPrincipal();
-                addUserService.addUserLog(username, userVO);
-                return ResponseUtil.success();
-
-            }
-            return ResponseUtil.response("1001", apiVO, apiVO.getMsg());
-        } catch (IOException e) {
-            e.printStackTrace();
+            addUserService.addUserLog(username, userVO);
+        } catch (NoInventoryException e) {
+            return ResponseUtil.response(ResponseEnum.NO_INVENTROY.value, null, ResponseEnum.NO_INVENTROY.desc);
+        } catch (Exception e) {
+            return ResponseUtil.response(ResponseEnum.API_ERROR.value, null, e.getMessage());
         }
-        return ResponseUtil.response("0001", null, "开户失败");
+        return ResponseUtil.success();
     }
 
     @RequestMapping(path = "/batchAddUser", method = RequestMethod.POST)
     @ResponseBody
     public Object batchAddUser(BatchUserVO batchUserVO) {
-        HttpResult res = null;
-        ApiVO apiVO = null;
+        Subject currentUser = SecurityUtils.getSubject();
+        String username = (String) currentUser.getPrincipal();
         try {
-            Map<String, String> params = BeanMapUtil.bean2MapStr(batchUserVO);
-            res = httpClientService.doPost(UrlConstant.BATCH_ADD_USER_URL, params);
-            apiVO = JSON.parseObject(res.getData(), ApiVO.class);
-            if (apiVO.getCode().equals(0)) {
-                Subject currentUser = SecurityUtils.getSubject();
-                String username = (String) currentUser.getPrincipal();
-                addUserService.batchAddUserLog(username, batchUserVO);
-                return ResponseUtil.success();
-            }
-            return ResponseUtil.response("1001", apiVO, apiVO.getMsg());
-        } catch (IOException e) {
-            e.printStackTrace();
+            addUserService.batchAddUserLog(username, batchUserVO);
+        } catch (NoInventoryException e) {
+            return ResponseUtil.response(ResponseEnum.NO_INVENTROY.value, null, ResponseEnum.NO_INVENTROY.desc);
+        } catch (Exception e) {
+            return ResponseUtil.response(ResponseEnum.API_ERROR.value, null, e.getMessage());
         }
-        return ResponseUtil.response("0001", null, "开户失败");
+        return ResponseUtil.success();
+
+
     }
 }

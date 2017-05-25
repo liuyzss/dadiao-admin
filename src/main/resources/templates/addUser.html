@@ -33,7 +33,8 @@
                         </div>
                         <div class="form-group">
                             <label for="dayCount">Day count</label>
-                            <input type="number" class="form-control" id="dayCount" name="dayCount" placeholder="Enter dayCount">
+                            <input type="number" class="form-control" id="dayCount" name="dayCount"
+                                   placeholder="Enter dayCount">
                         </div>
                     </div>
                     <div class="box-footer">
@@ -64,10 +65,12 @@
                 data: data,
                 dataType: 'json',
                 success: function (res) {
-                    if("0000"==res.code){
-                        location = location;
-                    }else{
-                        alert(res.msg);
+                    if ("0000" == res.code) {
+                        bootbox.alert("添加成功", function () {
+                            location = location;
+                        });
+                    } else {
+                        bootbox.alert(res.msg);
                     }
                 }
 
